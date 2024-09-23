@@ -1,0 +1,6 @@
+MongoDB
+
+id: userdemo
+pd: userdemo12
+
+url: mongodb+srv://userdemo:<db_password>@bookcluster.dxttd.mongodb.net/?retryWrites=true&w=majority&appName=BookCluster

@@ -72,7 +72,6 @@ router.delete("/books/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const books = await Book.deleteOne({ _id: id });
-    res.status(200).json(books);
 
     if (books.deletedCount === 0) {
       res.status(404).json({ message: "Book not found!" });

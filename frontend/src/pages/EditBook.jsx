@@ -14,9 +14,21 @@ const EditBook = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios
+      .get(API_URL + `/api/books/${id}`)
+      .then((res) => res.data)
+      .then((data) => {
+        setTitle(data.title);
+        setAuthor(data.author);
+        setPublishYear(data.publishYear);
+      })
+      .catch((error) => {
+        console.log("Error fetch singlebook data!", error.message);
+      });
+  }, []);
 
-  const handleSaveBook = async (e) => {
+  const handleEditBook = async (e) => {
     e.preventDefault();
 
     const bookData = {
@@ -26,7 +38,7 @@ const EditBook = () => {
     };
 
     await axios
-      .post(API_URL + `/api/books`, bookData)
+      .put(API_URL + `/api/books/${id}`, bookData)
       .then(() => {
         navigate("/");
         // console.log("Data", bookData);
@@ -40,7 +52,7 @@ const EditBook = () => {
     <>
       <div className="p-4">
         <BackButton />
-        <h1 className="text-3xl my-4">Create Book</h1>
+        <h1 className="text-3xl my-4">Edit Book</h1>
 
         {loading ? <Spinner /> : ""}
 
@@ -79,7 +91,7 @@ const EditBook = () => {
             />
           </div>
 
-          <button className="p-2 bg-sky-300 m-8" onClick={handleSaveBook}>
+          <button className="p-2 bg-sky-300 m-8" onClick={handleEditBook}>
             Save
           </button>
         </div>
